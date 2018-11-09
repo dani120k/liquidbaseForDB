@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+
+    <changeSet id="createDomainTable" author="Sokolov">
+        <createTable tableName="domain">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="domain_name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="createOrgUnitTable" author="Sokolov">
+        <createTable tableName="org_units">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="orgunit_name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+
+            <column name="domain_id" type="int">
+                <constraints nullable="false" foreignKeyName="id" references="domain(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createUserTable" author="Sokolov">
+        <createTable tableName="users">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)"/>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="second_name" type="varchar(255)"/>
+            <column name="org_unit_id" type="int">
+                <constraints nullable="false" foreignKeyName="id" references="org_units(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
+
