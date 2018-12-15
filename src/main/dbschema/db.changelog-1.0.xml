@@ -17,11 +17,11 @@
 
 
     <changeSet id="createOrgUnitTable" author="Sokolov">
-        <createTable tableName="org_units">
+        <createTable tableName="org_unit">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="orgunit_name" type="varchar(255)"/>
+            <column name="org_unit_name" type="varchar(255)"/>
             <column name="description" type="varchar(255)"/>
 
             <column name="domain_id" type="int">
@@ -35,11 +35,41 @@
             <column name="id" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="login" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="login_time" type="date"/>
+            <column name="org_unit_id" type="int">
+                <constraints nullable="false" foreignKeyName="id" references="org_unit(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createUserInfoTable" author="Sokolov">
+        <createTable tableName="user_info">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="email" type="varchar(255)"/>
             <column name="first_name" type="varchar(255)"/>
             <column name="second_name" type="varchar(255)"/>
-            <column name="org_unit_id" type="int">
-                <constraints nullable="false" foreignKeyName="id" references="org_units(id)"/>
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="id" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createTaskTable" author="Sokolov">
+        <createTable tableName="task">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="creation_time" type="date"/>
+            <column name="creator_user_id" type="int">
+                <constraints nullable="false" foreignKeyName="user_id" references="users(id)"/>
+            </column>
+            <column name="executor_user_id" type="int">
+                <constraints nullable="true" foreignKeyName="exec_id" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>
