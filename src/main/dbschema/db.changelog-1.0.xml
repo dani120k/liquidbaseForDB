@@ -49,9 +49,12 @@
             <column name="id" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="email" type="varchar(255)"/>
+            <column name="email" type="varchar(255)" >
+
+            </column>
             <column name="first_name" type="varchar(255)"/>
             <column name="second_name" type="varchar(255)"/>
+            <column name="cartoon" type="int"/>
             <column name="user_id" type="int">
                 <constraints nullable="false" foreignKeyName="id" references="users(id)"/>
             </column>
@@ -65,6 +68,9 @@
             </column>
             <column name="description" type="varchar(255)"/>
             <column name="creation_time" type="date"/>
+            <column name="status" type="int"/>
+            <column name="curr_hours" type="int"/>
+            <column name="full_hours" type="int"/>
             <column name="creator_user_id" type="int">
                 <constraints nullable="false" foreignKeyName="user_id" references="users(id)"/>
             </column>
